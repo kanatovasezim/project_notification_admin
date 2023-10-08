@@ -84,7 +84,7 @@ function Mailing() {
                         />
                         {error && <Text color="red.500" mt={2}>{error}</Text>}
                     </FormControl>
-                    <Box mt={4} spacing={2}>
+                    <Box mt={4}>
                         {savedEmails.map((email, index) => (
                             <Tag key={index} size="md" colorScheme="teal" m={1}>
                                 <TagLabel>{email}</TagLabel>
@@ -92,7 +92,7 @@ function Mailing() {
                             </Tag>
                         ))}
                     </Box>
-                    <Button mt={4} type="submit">
+                    <Button mt={4} bgColor={"#18234c"} color="white" type="submit">
                         Save
                     </Button>
                 </CardBody>

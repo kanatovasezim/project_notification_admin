@@ -125,7 +125,7 @@ function SearchCriteria() {
                             value={contractType}
                             onChange={handleContractType}
                         >
-                            <option value="Freiberuflich" defaultValue>Freiberuflich</option>
+                            <option value="Freiberuflich">Freiberuflich</option>
                             <option value="Festanstellung">Festanstellung</option>
                             <option value="Arbeitnehmerüberlassung">Arbeitnehmerüberlassung</option>
                         </Select>
@@ -137,7 +137,7 @@ function SearchCriteria() {
                             value={country}
                             onChange={handleCountry}
                         >
-                            <option value="Germany" defaultValue>Deutschland</option>
+                            <option value="Germany">Deutschland</option>
                             <option value="Austria">Österreich</option>
                             <option value="D-A-CH">D-A-CH</option>
                             <option value="Europe">Europa</option>
@@ -151,14 +151,14 @@ function SearchCriteria() {
                             value={locationType}
                             onChange={handleLocationType}
                         >
-                            <option value="Vor Ort" defaultValue>Vor Ort</option>
+                            <option value="Vor Ort">Vor Ort</option>
                             <option value="Remote">Remote</option>
                             <option value="Hybrid">Hybrid</option>
 
                         </Select>
                     </FormControl>
                     <Box display={"flex"} justifyContent={'center'}>
-                        <Button mt={4} type="submit">
+                        <Button mt={4} bgColor={"#18234c"} color="white" type="submit">
                             Save
                         </Button>
                     </Box>

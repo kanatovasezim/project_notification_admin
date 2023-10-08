@@ -80,7 +80,7 @@ function Scheduler() {
                         <Text mx={2}>Minutes</Text>
                     </Box>
                     <Box>
-                        <Button type="submit">
+                        <Button type="submit" bgColor={"#18234c"} color="white">
                             Save
                         </Button>
                     </Box>
