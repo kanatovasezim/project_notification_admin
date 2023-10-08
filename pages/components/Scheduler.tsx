@@ -49,7 +49,7 @@ function Scheduler() {
     };
 
     return (
-        <Card my={4} w={{ base: '100%', md: '70%' }}>
+        <Card my={4} >
             <form onSubmit={handleSchedulerSubmit}>
                 <CardBody display="flex" flexDirection="column" alignItems={"center"}>
                     <Heading as='h3' size='lg'>Scheduler</Heading>

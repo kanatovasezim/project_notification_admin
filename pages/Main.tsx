@@ -7,18 +7,17 @@ import SearchCriteria from "./components/SearchCriteria";
 const Main: React.FC = () => {
 
     return (
-        <Flex flexDirection={{ base: 'column', md: 'column' }} minH="100vh">
+        <Flex flexDirection={{base: 'column', md: 'column'}} minH="100vh">
             <Box bg="blue.500" color="white" p={7}>
                 <Text>Project Notification Service Admin Panel</Text>
             </Box>
-
-            <Box flex="1" display="flex">
+            <Flex flexDirection={{base: 'column', lg: 'row'}}>
                 <SearchCriteria/>
-                <Box flex="2" display="flex" flexDirection="column" mr={4}>
+                <Box flex={{base: '4', md: '12'}} display="flex" flexDirection="column" mr={4}>
                     <Scheduler/>
                     <Mailing/>
                 </Box>
-            </Box>
+            </Flex>
         </Flex>
     );
 };

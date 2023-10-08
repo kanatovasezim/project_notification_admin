@@ -91,9 +91,9 @@ function SearchCriteria() {
     };
 
     return (
-        <Card flex="3" display="flex" m={4}>
+        <Card m={4} flex={{base: '8', md: '12'}} display="flex">
             <form onSubmit={handleSubmit}>
-                <CardBody>
+                <CardBody display={"flex"} flexDirection={"column"}>
                     <Heading as='h3' size='lg'>Search Criteria</Heading>
                     <Box my={5}>
                         <FormControl>
@@ -130,7 +130,6 @@ function SearchCriteria() {
                             <option value="Arbeitnehmerüberlassung">Arbeitnehmerüberlassung</option>
                         </Select>
                     </FormControl>
-
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>
                         <Select
@@ -145,7 +144,6 @@ function SearchCriteria() {
                             <option value="Around the World">Weltweit</option>
                         </Select>
                     </FormControl>
-
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
                         <Select
@@ -159,9 +157,11 @@ function SearchCriteria() {
 
                         </Select>
                     </FormControl>
-                    <Button mt={4} type="submit">
-                        Send
-                    </Button>
+                    <Box display={"flex"} justifyContent={'center'}>
+                        <Button mt={4} type="submit">
+                            Save
+                        </Button>
+                    </Box>
                 </CardBody>
             </form>
         </Card>

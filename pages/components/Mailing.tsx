@@ -67,7 +67,7 @@ function Mailing() {
     };
 
     return (
-        <Card mb={4} w={{base: '100%', md: '70%'}}>
+        <Card mb={4}>
             <form onSubmit={handleSubmit}>
                 <CardBody display="flex" flexDirection="column" alignItems="center">
                     <Heading as="h3" size="lg">
