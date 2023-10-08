@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {Box, Button, Card, CardBody, Heading, HStack, PinInput, PinInputField, Text,} from "@chakra-ui/react";
 
 function Scheduler() {
-    const [pinValue, setPinValue] = useState('000'); // Initial PIN value
+    const [pinValue, setPinValue] = useState('000');
+    const [cronExpression, setCronExpression] = useState('');
 
     const handlePinChange = (value: string) => {
         setPinValue(value);
@@ -15,10 +16,29 @@ function Scheduler() {
         const hours = pinValue.substring(1, 3);
         const minutes = pinValue.substring(3, 5);
 
-        const cronExpression = `${minutes} ${hours} ${days} * * ?`;
+        setCronExpression(`${minutes} ${hours} ${days} * * ?`);
 
-        // Send the 'cronExpression' data to your Java Spring backend here
-        console.log(cronExpression); // Debugging output
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    newScheduleTime: cronExpression
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Response from server:', data);
+            } else {
+                console.error('Server returned an error:', response.status);
+            }
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+
     };
 
     return (

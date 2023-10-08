@@ -22,7 +22,6 @@ function Mailing() {
 
     const handleEmailInputChange = (event) => {
         setInputEmail(event.target.value);
-        // Clear the error message when the user starts typing
         setError("");
     };
 
@@ -31,18 +30,40 @@ function Mailing() {
             if (emailRegex.test(inputEmail)) {
                 setSavedEmails([...savedEmails, inputEmail]);
                 setInputEmail("");
-                setError(""); // Clear any previous error
+                setError("");
             } else {
                 setError("Invalid email address");
             }
         }
     };
 
-
     const handleEmailTagClose = (index) => {
         const updatedEmails = [...savedEmails];
         updatedEmails.splice(index, 1);
         setSavedEmails(updatedEmails);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-email-receivers', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(savedEmails),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Response from server:', data);
+            } else {
+                console.error('Server returned an error:', response.status);
+            }
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
     };
 
     return (
@@ -51,28 +72,30 @@ function Mailing() {
                 <Heading as="h3" size="lg">
                     Mailing
                 </Heading>
-                <FormControl>
-                    <FormLabel>List of receivers</FormLabel>
-                    <Input
-                        type="email"
-                        placeholder="Enter an email and press Enter to save"
-                        value={inputEmail}
-                        onChange={handleEmailInputChange}
-                        onKeyDown={handleEmailKeyPress}
-                    />
-                    {error && <Text color="red.500" mt={2}>{error}</Text>}
-                </FormControl>
-                <Box mt={4} spacing={2}>
-                    {savedEmails.map((email, index) => (
-                        <Tag key={index} size="md" colorScheme="teal" m={1}>
-                            <TagLabel>{email}</TagLabel>
-                            <TagCloseButton onClick={() => handleEmailTagClose(index)}/>
-                        </Tag>
-                    ))}
-                </Box>
-                <Button mt={4} type="submit">
-                    Save
-                </Button>
+                <form onSubmit={handleSubmit}>
+                    <FormControl>
+                        <FormLabel>List of receivers</FormLabel>
+                        <Input
+                            type="email"
+                            placeholder="Enter an email and press Enter to save"
+                            value={inputEmail}
+                            onChange={handleEmailInputChange}
+                            onKeyDown={handleEmailKeyPress}
+                        />
+                        {error && <Text color="red.500" mt={2}>{error}</Text>}
+                    </FormControl>
+                    <Box mt={4} spacing={2}>
+                        {savedEmails.map((email, index) => (
+                            <Tag key={index} size="md" colorScheme="teal" m={1}>
+                                <TagLabel>{email}</TagLabel>
+                                <TagCloseButton onClick={() => handleEmailTagClose(index)}/>
+                            </Tag>
+                        ))}
+                    </Box>
+                    <Button mt={4} type="submit">
+                        Save
+                    </Button>
+                </form>
             </CardBody>
         </Card>
     );

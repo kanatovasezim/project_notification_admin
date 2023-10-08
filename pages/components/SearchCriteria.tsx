@@ -21,7 +21,6 @@ import {
 
 function SearchCriteria() {
     const [searchWord, setSearchWord] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
     const [savedWords, setSavedWords] = useState([]);
     const [sliderValue, setSliderValue] = useState(50);
 
@@ -40,8 +39,6 @@ function SearchCriteria() {
         setSavedWords(updatedWords);
     };
 
-    const handleOptionChange = (e) => setSelectedOption(e.target.value);
-
     const labelStyles = {
         mt: '2',
         ml: '-2.5',
@@ -49,14 +46,12 @@ function SearchCriteria() {
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        console.log('HEREEE')
         e.preventDefault();
-
         try {
             const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-search-query', {
-                method: 'POST', // Use the appropriate HTTP method (POST, GET, PUT, etc.)
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Set the content type to JSON
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     locationType: sliderValue,
@@ -67,10 +62,8 @@ function SearchCriteria() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Response from server:', data);
-                // Optionally, you can update the UI or perform other actions based on the response.
             } else {
                 console.error('Server returned an error:', response.status);
-                // Handle the error or display an error message to the user.
             }
         } catch (error) {
             console.error('Error sending data:', error);
@@ -101,34 +94,34 @@ function SearchCriteria() {
                             ))}
                         </Box>
                     </Box>
-                    <FormControl mb={5}>
-                        <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>
-                        <Select
-                            placeholder=""
-                            value={selectedOption}
-                            onChange={handleOptionChange}
-                        >
-                            <option value="self">Freiberuflich</option>
-                            <option value="permanent">Festanstellung</option>
-                            <option value="temporary">Arbeitnehmerüberlassung</option>
-                        </Select>
-                    </FormControl>
+                    {/*<FormControl mb={5}>*/}
+                    {/*    <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>*/}
+                    {/*    <Select*/}
+                    {/*        placeholder=""*/}
+                    {/*        value={selectedOption}*/}
+                    {/*        onChange={handleOptionChange}*/}
+                    {/*    >*/}
+                    {/*        <option value="self">Freiberuflich</option>*/}
+                    {/*        <option value="permanent">Festanstellung</option>*/}
+                    {/*        <option value="temporary">Arbeitnehmerüberlassung</option>*/}
+                    {/*    </Select>*/}
+                    {/*</FormControl>*/}
 
-                    <FormControl mb={5}>
-                        <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>
-                        <Select
-                            placeholder=""
-                            value={selectedOption}
-                            onChange={handleOptionChange}
-                        >
-                            <option value="DE">Deutschland</option>
-                            <option value="1">Österreich</option>
-                            <option value="2">Schweiz</option>
-                            <option value="3">D-A-CH</option>
-                            <option value="4">Europa</option>
-                            <option value="5">Weltweit</option>
-                        </Select>
-                    </FormControl>
+                    {/*<FormControl mb={5}>*/}
+                    {/*    <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>*/}
+                    {/*    <Select*/}
+                    {/*        placeholder=""*/}
+                    {/*        value={selectedOption}*/}
+                    {/*        onChange={handleOptionChange}*/}
+                    {/*    >*/}
+                    {/*        <option value="DE">Deutschland</option>*/}
+                    {/*        <option value="1">Österreich</option>*/}
+                    {/*        <option value="2">Schweiz</option>*/}
+                    {/*        <option value="3">D-A-CH</option>*/}
+                    {/*        <option value="4">Europa</option>*/}
+                    {/*        <option value="5">Weltweit</option>*/}
+                    {/*    </Select>*/}
+                    {/*</FormControl>*/}
 
                     <Box mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
