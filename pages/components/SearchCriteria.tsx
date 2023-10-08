@@ -18,16 +18,16 @@ import {
 function SearchCriteria() {
     const [searchWord, setSearchWord] = useState('');
     const [savedWords, setSavedWords] = useState([]);
-    const [country, setCountry] = useState('');
-    const [contractType, setContractType] = useState('');
-    const [locationType, setLocationType] = useState('');
+    const [country, setCountry] = useState('Germany');
+    const [contractType, setContractType] = useState('Freiberuflich');
+    const [locationType, setLocationType] = useState('Vor Ort');
     const [searchWordError, setSearchWordError] = useState('');
 
     const handleInputChange = (event) => setSearchWord(event.target.value);
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
-            event.preventDefault(); // Prevent the default behavior (form submission)
+            event.preventDefault();
 
             if (searchWord.trim() !== "") {
                 setSavedWords([...savedWords, searchWord]);
@@ -92,9 +92,9 @@ function SearchCriteria() {
 
     return (
         <Card flex="3" display="flex" m={4}>
-            <CardBody>
-                <Heading as='h3' size='lg'>Search Criteria</Heading>
-                <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
+                <CardBody>
+                    <Heading as='h3' size='lg'>Search Criteria</Heading>
                     <Box my={5}>
                         <FormControl>
                             <FormLabel fontWeight="bold" fontSize="lg">Search Keywords</FormLabel>
@@ -113,7 +113,7 @@ function SearchCriteria() {
                             {savedWords.map((word, index) => (
                                 <Tag key={index} size="md" m={1}>
                                     <TagLabel>{word}</TagLabel>
-                                    <TagCloseButton onClick={() => handleTagClose(index)} />
+                                    <TagCloseButton onClick={() => handleTagClose(index)}/>
                                 </Tag>
                             ))}
                         </Box>
@@ -125,7 +125,7 @@ function SearchCriteria() {
                             value={contractType}
                             onChange={handleContractType}
                         >
-                            <option value="Freiberuflich">Freiberuflich</option>
+                            <option value="Freiberuflich" defaultValue>Freiberuflich</option>
                             <option value="Festanstellung">Festanstellung</option>
                             <option value="Arbeitnehmerüberlassung">Arbeitnehmerüberlassung</option>
                         </Select>
@@ -138,7 +138,7 @@ function SearchCriteria() {
                             value={country}
                             onChange={handleCountry}
                         >
-                            <option value="Germany">Deutschland</option>
+                            <option value="Germany" defaultValue>Deutschland</option>
                             <option value="Austria">Österreich</option>
                             <option value="D-A-CH">D-A-CH</option>
                             <option value="Europe">Europa</option>
@@ -153,7 +153,7 @@ function SearchCriteria() {
                             value={locationType}
                             onChange={handleLocationType}
                         >
-                            <option value="Vor Ort">Vor Ort</option>
+                            <option value="Vor Ort" defaultValue>Vor Ort</option>
                             <option value="Remote">Remote</option>
                             <option value="Hybrid">Hybrid</option>
 
@@ -162,8 +162,8 @@ function SearchCriteria() {
                     <Button mt={4} type="submit">
                         Send
                     </Button>
-                </form>
-            </CardBody>
+                </CardBody>
+            </form>
         </Card>
     );
 }
