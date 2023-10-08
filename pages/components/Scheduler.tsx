@@ -1,22 +1,28 @@
 import React, {useState} from 'react';
-import {Box, Button, Card, CardBody, Heading, HStack, PinInput, PinInputField, Text,} from "@chakra-ui/react";
+import {Box, Button, Card, CardBody, Heading, HStack, Input, Text,} from "@chakra-ui/react";
 
 function Scheduler() {
-    const [pinValue, setPinValue] = useState('000');
-    const [cronExpression, setCronExpression] = useState('');
+    const [days, setDays] = useState(0);
+    const [hours, setHours] = useState(0);
+    const [minutes, setMinutes] = useState(0);
 
-    const handlePinChange = (value: string) => {
-        setPinValue(value);
+    const handleDaysChange = (event) => {
+        const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
+        setDays(newValue);
     };
 
-    const handleSchedulerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleHoursChange = (event) => {
+        const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
+        setHours(newValue);
+    };
+
+    const handleMinutesChange = (event) => {
+        const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
+        setMinutes(newValue);
+    };
+
+    const handleSchedulerSubmit = async (e) => {
         e.preventDefault();
-
-        const days = pinValue.substring(0, 1);
-        const hours = pinValue.substring(1, 3);
-        const minutes = pinValue.substring(3, 5);
-
-        setCronExpression(`${minutes} ${hours} ${days} * * ?`);
 
         try {
             const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-schedule', {
@@ -25,7 +31,9 @@ function Scheduler() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    newScheduleTime: cronExpression
+                    Days: days,
+                    Hours: hours,
+                    Minutes: minutes,
                 }),
             });
 
@@ -38,7 +46,6 @@ function Scheduler() {
         } catch (error) {
             console.error('Error sending data:', error);
         }
-
     };
 
     return (
@@ -47,14 +54,30 @@ function Scheduler() {
                 <CardBody display="flex" flexDirection="column" alignItems={"center"}>
                     <Heading as='h3' size='lg'>Scheduler</Heading>
                     <HStack my={5}>
-                        <PinInput type='number' defaultValue='000' onChange={handlePinChange}>
-                            <PinInputField/>
-                            <Text>Days</Text>
-                            <PinInputField/>
-                            <Text>Hours</Text>
-                            <PinInputField/>
-                            <Text>Minutes</Text>
-                        </PinInput>
+                        <Input
+                            type='number'
+                            value={days}
+                            onChange={handleDaysChange}
+                            min={0}
+                            max={365}
+                        />
+                        <Text>Days</Text>
+                        <Input
+                            type='number'
+                            value={hours}
+                            onChange={handleHoursChange}
+                            min={0}
+                            max={23}
+                        />
+                        <Text>Hours</Text>
+                        <Input
+                            type='number'
+                            value={minutes}
+                            onChange={handleMinutesChange}
+                            min={0}
+                            max={59}
+                        />
+                        <Text>Minutes</Text>
                     </HStack>
                     <Box>
                         <Button type="submit">
