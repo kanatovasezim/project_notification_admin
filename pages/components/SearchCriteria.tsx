@@ -22,7 +22,9 @@ import {
 function SearchCriteria() {
     const [searchWord, setSearchWord] = useState('');
     const [savedWords, setSavedWords] = useState([]);
-    const [sliderValue, setSliderValue] = useState(50);
+    const [country, setCountry] = useState('');
+    const [contractType, setContractType] = useState('');
+    const [projectLocation, setProjectLocation] = useState(0);
 
     const handleInputChange = (event) => setSearchWord(event.target.value);
 
@@ -39,6 +41,14 @@ function SearchCriteria() {
         setSavedWords(updatedWords);
     };
 
+    const handleCountry = (event) => {
+        setCountry(event.target.value);
+    }
+
+    const handleContractType = (event) => {
+        setContractType(event.target.value);
+    }
+
     const labelStyles = {
         mt: '2',
         ml: '-2.5',
@@ -54,7 +64,9 @@ function SearchCriteria() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    locationType: sliderValue,
+                    locationType: projectLocation,
+                    contractType: contractType,
+                    country: country,
                     keywords: [searchWord],
                 }),
             });
@@ -94,43 +106,42 @@ function SearchCriteria() {
                             ))}
                         </Box>
                     </Box>
-                    {/*<FormControl mb={5}>*/}
-                    {/*    <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>*/}
-                    {/*    <Select*/}
-                    {/*        placeholder=""*/}
-                    {/*        value={selectedOption}*/}
-                    {/*        onChange={handleOptionChange}*/}
-                    {/*    >*/}
-                    {/*        <option value="self">Freiberuflich</option>*/}
-                    {/*        <option value="permanent">Festanstellung</option>*/}
-                    {/*        <option value="temporary">Arbeitnehmerüberlassung</option>*/}
-                    {/*    </Select>*/}
-                    {/*</FormControl>*/}
+                    <FormControl mb={5}>
+                        <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>
+                        <Select
+                            placeholder=""
+                            value={contractType}
+                            onChange={handleContractType}
+                        >
+                            <option value="Freiberuflich">Freiberuflich</option>
+                            <option value="Festanstellung">Festanstellung</option>
+                            <option value="Arbeitnehmerüberlassung">Arbeitnehmerüberlassung</option>
+                        </Select>
+                    </FormControl>
 
-                    {/*<FormControl mb={5}>*/}
-                    {/*    <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>*/}
-                    {/*    <Select*/}
-                    {/*        placeholder=""*/}
-                    {/*        value={selectedOption}*/}
-                    {/*        onChange={handleOptionChange}*/}
-                    {/*    >*/}
-                    {/*        <option value="DE">Deutschland</option>*/}
-                    {/*        <option value="1">Österreich</option>*/}
-                    {/*        <option value="2">Schweiz</option>*/}
-                    {/*        <option value="3">D-A-CH</option>*/}
-                    {/*        <option value="4">Europa</option>*/}
-                    {/*        <option value="5">Weltweit</option>*/}
-                    {/*    </Select>*/}
-                    {/*</FormControl>*/}
+                    <FormControl mb={5}>
+                        <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>
+                        <Select
+                            placeholder=""
+                            value={country}
+                            onChange={handleCountry}
+                        >
+                            <option value="Germany">Deutschland</option>
+                            <option value="Austria">Österreich</option>
+                            <option value="D-A-CH">D-A-CH</option>
+                            <option value="Europe">Europa</option>
+                            <option value="Around the World">Weltweit</option>
+                        </Select>
+                    </FormControl>
 
                     <Box mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
-                        <Slider aria-label='slider-ex-6' onChange={(val) => setSliderValue(val)}>
+                        <Slider aria-label='slider-ex-6' onChange={(val) => setProjectLocation(val)}>
                             <SliderMark value={25} {...labelStyles}>25%</SliderMark>
                             <SliderMark value={50} {...labelStyles}>50%</SliderMark>
                             <SliderMark value={75} {...labelStyles}>75%</SliderMark>
                             <SliderMark
-                                value={sliderValue}
+                                value={projectLocation}
                                 textAlign='center'
                                 bg='blue.500'
                                 color='white'
@@ -138,7 +149,7 @@ function SearchCriteria() {
                                 ml='-5'
                                 w='12'
                             >
-                                {sliderValue}%
+                                {projectLocation}%
                             </SliderMark>
                             <SliderTrack>
                                 <SliderFilledTrack />
