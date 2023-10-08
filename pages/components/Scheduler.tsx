@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Box, Button, Card, CardBody, Heading, HStack, Input, Text,} from "@chakra-ui/react";
 
 function Scheduler() {
-    const [days, setDays] = useState(0);
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
+    const [days, setDays] = useState<number>();
+    const [hours, setHours] = useState<number>();
+    const [minutes, setMinutes] = useState<number>();
 
     const handleDaysChange = (event) => {
         const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
