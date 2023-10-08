@@ -75,7 +75,7 @@ function SearchCriteria() {
                     locationType: locationType,
                     contractType: contractType,
                     country: country,
-                    keywords: [savedWords],
+                    keywords: savedWords,
                 }),
             });
 

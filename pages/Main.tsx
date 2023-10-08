@@ -7,7 +7,7 @@ import SearchCriteria from "./components/SearchCriteria";
 const Main: React.FC = () => {
 
     return (
-        <Flex flexDirection="column" minH="100vh">
+        <Flex flexDirection={{ base: 'column', md: 'column' }} minH="100vh">
             <Box bg="blue.500" color="white" p={7}>
                 <Text>Project Notification Service Admin Panel</Text>
             </Box>

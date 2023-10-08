@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Card, CardBody, Heading, HStack, Input, Text,} from "@chakra-ui/react";
+import {Box, Button, Card, CardBody, Heading, Input, Text,} from "@chakra-ui/react";
 
 function Scheduler() {
     const [days, setDays] = useState<number>();
@@ -49,11 +49,11 @@ function Scheduler() {
     };
 
     return (
-        <Card my={4}>
+        <Card my={4} w={{ base: '100%', md: '70%' }}>
             <form onSubmit={handleSchedulerSubmit}>
                 <CardBody display="flex" flexDirection="column" alignItems={"center"}>
                     <Heading as='h3' size='lg'>Scheduler</Heading>
-                    <HStack my={5}>
+                    <Box display="flex" justifyContent="space-between" alignItems="center" my={5}>
                         <Input
                             type='number'
                             value={days}
@@ -61,7 +61,7 @@ function Scheduler() {
                             min={0}
                             max={365}
                         />
-                        <Text>Days</Text>
+                        <Text mx={2}>Days</Text>
                         <Input
                             type='number'
                             value={hours}
@@ -69,7 +69,7 @@ function Scheduler() {
                             min={0}
                             max={23}
                         />
-                        <Text>Hours</Text>
+                        <Text mx={2}>Hours</Text>
                         <Input
                             type='number'
                             value={minutes}
@@ -77,8 +77,8 @@ function Scheduler() {
                             min={0}
                             max={59}
                         />
-                        <Text>Minutes</Text>
-                    </HStack>
+                        <Text mx={2}>Minutes</Text>
+                    </Box>
                     <Box>
                         <Button type="submit">
                             Save

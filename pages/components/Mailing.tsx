@@ -67,12 +67,12 @@ function Mailing() {
     };
 
     return (
-        <Card mb={4}>
-            <CardBody display="flex" flexDirection="column" alignItems="center">
-                <Heading as="h3" size="lg">
-                    Mailing
-                </Heading>
-                <form onSubmit={handleSubmit}>
+        <Card mb={4} w={{base: '100%', md: '70%'}}>
+            <form onSubmit={handleSubmit}>
+                <CardBody display="flex" flexDirection="column" alignItems="center">
+                    <Heading as="h3" size="lg">
+                        Mailing
+                    </Heading>
                     <FormControl>
                         <FormLabel>List of receivers</FormLabel>
                         <Input
@@ -95,8 +95,8 @@ function Mailing() {
                     <Button mt={4} type="submit">
                         Save
                     </Button>
-                </form>
-            </CardBody>
+                </CardBody>
+            </form>
         </Card>
     );
 }
