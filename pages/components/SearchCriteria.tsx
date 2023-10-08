@@ -49,18 +49,18 @@ function SearchCriteria() {
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log('HEREEE')
         e.preventDefault();
 
         try {
-            const response = await fetch('http://your-java-api-url.com/endpoint', {
+            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-search-query', {
                 method: 'POST', // Use the appropriate HTTP method (POST, GET, PUT, etc.)
                 headers: {
                     'Content-Type': 'application/json', // Set the content type to JSON
                 },
                 body: JSON.stringify({
-                    searchWord,
-                    selectedOption,
-                    sliderValue,
+                    locationType: sliderValue,
+                    keywords: [searchWord],
                 }),
             });
 
@@ -153,10 +153,10 @@ function SearchCriteria() {
                             <SliderThumb />
                         </Slider>
                     </Box>
+                    <Button mt={4} type="submit">
+                        Send
+                    </Button>
                 </form>
-                <Button mt={4} type="submit">
-                    Send
-                </Button>
             </CardBody>
         </Card>
     );
