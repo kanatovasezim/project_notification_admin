@@ -31,9 +31,9 @@ function Scheduler() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    Days: days,
-                    Hours: hours,
-                    Minutes: minutes,
+                    Days: days? days: 0,
+                    Hours: hours? hours : 0,
+                    Minutes: minutes? minutes : 0,
                 }),
             });
 

@@ -7,20 +7,21 @@ import SearchCriteria from "./components/SearchCriteria";
 const Main: React.FC = () => {
 
     return (
-        <Flex flexDirection={{base: 'column', md: 'column'}} minH="100vh">
+        <Flex flexDirection={{ base: 'column', md: 'column' }} minH="100vh">
             <Box
                 bgColor={"#18234c"}
                 display={"flex"}
                 flexDirection={{ base: 'column', md: 'row' }}
-                alignItems={{ base: 'center', md: 'flex-start' }}
+                alignItems={{ base: 'center' }}
                 color="white"
-                p={{ base: 5, md: 7, lg: 10 }}
+                p={{ base: 5, md: 7, lg: 5 }}
             >
                 <Box
+
                     alignSelf={{ base: 'center', md: 'auto' }}
                     flex={{ base: 'none', md: '1' }}
                 >
-                    <Image src="/logo-white.png" maxWidth={{ base: '100%', md: '60%', lg: '40%' }} alt="Logo-white" />
+                    <Image src="/logo-white.png" maxWidth={{ base: '80%', md: '50%', lg: '30%' }} alt="Logo-white" />
                 </Box>
                 <Text fontSize={{ base: 'large', md: 'x-large', lg: 'xx-large' }} ml={{ base: '0', md: '5' }}>
                     Project-Notifier Service Admin Panel
@@ -30,7 +31,7 @@ const Main: React.FC = () => {
 
 
 
-            <Flex flexDirection={{base: 'column', lg: 'row'}}>
+    <Flex flexDirection={{base: 'column', lg: 'row'}}>
                 <SearchCriteria/>
                 <Box flex={{base: '4', md: '12'}} display="flex" flexDirection="column" mr={4}>
                     <Scheduler/>
