@@ -9,14 +9,10 @@ import {
     Heading,
     Input,
     Select,
-    Slider,
-    SliderFilledTrack,
-    SliderMark,
-    SliderThumb,
-    SliderTrack,
     Tag,
     TagCloseButton,
     TagLabel,
+    Text
 } from "@chakra-ui/react";
 
 function SearchCriteria() {
@@ -24,14 +20,22 @@ function SearchCriteria() {
     const [savedWords, setSavedWords] = useState([]);
     const [country, setCountry] = useState('');
     const [contractType, setContractType] = useState('');
-    const [projectLocation, setProjectLocation] = useState(0);
+    const [locationType, setLocationType] = useState('');
+    const [searchWordError, setSearchWordError] = useState('');
 
     const handleInputChange = (event) => setSearchWord(event.target.value);
 
     const handleKeyPress = (event) => {
-        if (event.key === "Enter" && searchWord.trim() !== "") {
-            setSavedWords([...savedWords, searchWord]);
-            setSearchWord("");
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevent the default behavior (form submission)
+
+            if (searchWord.trim() !== "") {
+                setSavedWords([...savedWords, searchWord]);
+                setSearchWord('');
+                setSearchWordError('');
+            } else {
+                setSearchWordError('Search Keywords cannot be empty');
+            }
         }
     };
 
@@ -49,14 +53,18 @@ function SearchCriteria() {
         setContractType(event.target.value);
     }
 
-    const labelStyles = {
-        mt: '2',
-        ml: '-2.5',
-        fontSize: 'sm',
-    };
+    const handleLocationType = (event) => {
+        setLocationType(event.target.value);
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (savedWords.length === 0) {
+            setSearchWordError('At least one search keyword is required');
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-search-query', {
                 method: 'POST',
@@ -64,10 +72,10 @@ function SearchCriteria() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    locationType: projectLocation,
+                    locationType: locationType,
                     contractType: contractType,
                     country: country,
-                    keywords: [searchWord],
+                    keywords: [savedWords],
                 }),
             });
 
@@ -79,7 +87,6 @@ function SearchCriteria() {
             }
         } catch (error) {
             console.error('Error sending data:', error);
-            // Handle any network errors or other exceptions.
         }
     };
 
@@ -96,6 +103,11 @@ function SearchCriteria() {
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyPress}
                             />
+                            {searchWordError && (
+                                <Text color="red.500" fontSize="sm" mt={1}>
+                                    {searchWordError}
+                                </Text>
+                            )}
                         </FormControl>
                         <Box mt={2}>
                             {savedWords.map((word, index) => (
@@ -134,29 +146,19 @@ function SearchCriteria() {
                         </Select>
                     </FormControl>
 
-                    <Box mb={5}>
+                    <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
-                        <Slider aria-label='slider-ex-6' onChange={(val) => setProjectLocation(val)}>
-                            <SliderMark value={25} {...labelStyles}>25%</SliderMark>
-                            <SliderMark value={50} {...labelStyles}>50%</SliderMark>
-                            <SliderMark value={75} {...labelStyles}>75%</SliderMark>
-                            <SliderMark
-                                value={projectLocation}
-                                textAlign='center'
-                                bg='blue.500'
-                                color='white'
-                                mt='-10'
-                                ml='-5'
-                                w='12'
-                            >
-                                {projectLocation}%
-                            </SliderMark>
-                            <SliderTrack>
-                                <SliderFilledTrack />
-                            </SliderTrack>
-                            <SliderThumb />
-                        </Slider>
-                    </Box>
+                        <Select
+                            placeholder=""
+                            value={locationType}
+                            onChange={handleLocationType}
+                        >
+                            <option value="Vor Ort">Vor Ort</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+
+                        </Select>
+                    </FormControl>
                     <Button mt={4} type="submit">
                         Send
                     </Button>
