@@ -7,7 +7,7 @@ import {withAuth} from "./utils/withAuth";
 import {ExternalLinkIcon} from '@chakra-ui/icons'
 
 
-const Main: React.FC = ({ checkAuthenticationStatus }) => {
+const Main: React.FC = ({checkAuthenticationStatus}) => {
     const [isLargerThanMd] = useMediaQuery("(min-width: 768px)");
 
     const logout = () => {
@@ -24,7 +24,7 @@ const Main: React.FC = ({ checkAuthenticationStatus }) => {
                 alignItems={isLargerThanMd ? "center" : "stretch"} // Vertical alignment on small screens
                 justifyContent="space-between"
                 color="white"
-                p={{ base: 5, md: 7, lg: 5 }}
+                p={{base: 5, md: 7, lg: 5}}
             >
                 <Box
                     width="100%"
@@ -33,13 +33,13 @@ const Main: React.FC = ({ checkAuthenticationStatus }) => {
                     alignItems="center"
                     order={isLargerThanMd ? 1 : 2} // Adjust the order for mobile
                 >
-                    {/* Your logo */}
+                    <Image src="/logo-white.png" maxWidth="70%" alt="Logo-white"/>
                 </Box>
                 <Text
-                    flex={{ base: "none", md: "70%", lg: "60%" }}
+                    flex={{base: "none", md: "70%", lg: "60%"}}
                     order={isLargerThanMd ? 2 : 1} // Adjust the order for mobile
-                    fontSize={{ base: "large", md: "x-large", lg: "xx-large" }}
-                    ml={{ base: 0, md: 5, lg: 5 }}
+                    fontSize={{base: "large", md: "x-large", lg: "xx-large"}}
+                    ml={{base: 0, md: 5, lg: 5}}
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
@@ -47,13 +47,13 @@ const Main: React.FC = ({ checkAuthenticationStatus }) => {
                     Project-Notifier Service Admin Panel
                 </Text>
                 <Box
-                    flex={{ base: "none", md: "15%", lg: "20%" }}
+                    flex={{base: "none", md: "15%", lg: "20%"}}
                     order={3}
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <Button onClick={logout} colorScheme="red" size="sm" leftIcon={<ExternalLinkIcon />}>
+                    <Button onClick={logout} colorScheme="red" size="sm" leftIcon={<ExternalLinkIcon/>}>
                         Logout
                     </Button>
                 </Box>
