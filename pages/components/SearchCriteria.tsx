@@ -77,8 +77,8 @@ function SearchCriteria() {
 
         const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-search-query';
         const requestData = JSON.stringify({
-            locationType: locationType,
-            contractType: contractType,
+            locationTypes: locationType,
+            contractTypes: contractType,
             country: country,
             keywords: savedWords,
         });
