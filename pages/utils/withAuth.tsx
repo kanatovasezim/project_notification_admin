@@ -1,37 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
 
 export const withAuth = (WrappedComponent: React.ComponentType) => {
     return (props: any) => {
         const router = useRouter();
         const [isLoading, setIsLoading] = useState(true);
 
-        useEffect(() => {
-            const checkAuthenticationStatus =  async () => {
-                try {
-                    const isAuthenticated = await authenticateUser();
+        const checkAuthenticationStatus = async () => {
+            try {
+                const isAuthenticated = !!localStorage.getItem('jwt');
 
-                    if (!isAuthenticated) {
-                        await router.push('/login');
-                    } else {
-                        setIsLoading(false);
-                    }
-                } catch (error) {
-                    console.error(error);
+                if (!isAuthenticated) {
+                    await router.push('/login');
+                } else {
                     setIsLoading(false);
                 }
-            };
+            } catch (error) {
+                console.error(error);
+                setIsLoading(false);
+            }
+        };
 
+        useEffect(() => {
             checkAuthenticationStatus();
         }, []);
 
         if (isLoading) {
             return <div>Loading...</div>;
         }
-        return <WrappedComponent {...props} />;
+
+        return <WrappedComponent checkAuthenticationStatus={checkAuthenticationStatus} {...props} />;
     };
 };
-
-async function authenticateUser() {
-    return !! localStorage.getItem('jwt');
-}

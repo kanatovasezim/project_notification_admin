@@ -13,7 +13,6 @@ export default function Login() {
             const response = await fetch('http://localhost:8080/api/v1/project-notifier/auth/login', {
                 method: 'POST',
                 headers: {
-                    // 'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username: `${username}`, password: `${password}` }), // Replace with actual data

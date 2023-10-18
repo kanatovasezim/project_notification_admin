@@ -7,10 +7,11 @@ import {withAuth} from "./utils/withAuth";
 import {ExternalLinkIcon} from '@chakra-ui/icons'
 
 
-const Main: React.FC = () => {
+const Main: React.FC = ({ checkAuthenticationStatus }) => {
 
-    const logout =  () => {
+    const logout = () => {
         localStorage.clear();
+        checkAuthenticationStatus();
     }
 
     return (
@@ -61,7 +62,6 @@ const Main: React.FC = () => {
                 </Box>
             </Box>
 
-
             <Flex flexDirection={{base: 'column', lg: 'row'}}>
                 <SearchCriteria/>
                 <Box flex={{base: '4', md: '12'}} display="flex" flexDirection="column" mr={4}>
@@ -70,13 +70,12 @@ const Main: React.FC = () => {
                 </Box>
             </Flex>
 
-            {/* Footer */}
             <Box
                 bgColor="#18234c"
                 color="white"
                 p={4}
                 textAlign="center"
-                mt="auto" // Push the footer to the bottom
+                mt="auto"
             >
                 &copy; Alter Solutions Deutschland GmbH 2023. All rights reserved.
             </Box>
