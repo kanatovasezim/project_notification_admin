@@ -21,6 +21,7 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
         if (response.ok) {
             return await response.json();
         } else {
+
             console.error(`Request failed: ${response.status} ${response.statusText}`);
         }
     } catch (error) {

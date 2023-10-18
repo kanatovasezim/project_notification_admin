@@ -1,5 +1,6 @@
 import { Box, Button, Input } from '@chakra-ui/react';
 import { useState } from 'react';
+import {router} from "next/client";
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -9,18 +10,20 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch('http://localhost:8080/api/v1/project-notifier/auth/login', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+                    // 'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({ username: `${username}`, password: `${password}` }), // Replace with actual data
+
             });
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('jwt', data.token);
-                console.log('jwt: ' + data.token);
+                localStorage.setItem('jwt', data.data);
+                router.push("/");
             } else {
                 console.log('Login failed');
             }

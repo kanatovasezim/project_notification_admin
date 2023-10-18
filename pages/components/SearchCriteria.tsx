@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Button,
@@ -12,7 +12,8 @@ import {
     Tag,
     TagCloseButton,
     TagLabel,
-    Text
+    Text,
+    Checkbox,
 } from "@chakra-ui/react";
 
 function SearchCriteria() {
@@ -47,17 +48,25 @@ function SearchCriteria() {
 
     const handleCountry = (event) => {
         setCountry(event.target.value);
-    }
+    };
 
-    const handleContractType = (event) => {
-        setContractType(event.target.value);
-    }
+    const handleContractType = (value) => {
+        if (contractType.includes(value)) {
+            setContractType(contractType.filter((item) => item !== value));
+        } else {
+            setContractType([...contractType, value]);
+        }
+    };
 
-    const handleLocationType = (event) => {
-        setLocationType(event.target.value);
-    }
+    const handleLocationType = (value) => {
+        if (locationType.includes(value)) {
+            setLocationType(locationType.filter((item) => item !== value));
+        } else {
+            setLocationType([...locationType, value]);
+        }
+    };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (savedWords.length === 0) {
@@ -72,6 +81,7 @@ function SearchCriteria() {
             country: country,
             keywords: savedWords,
         });
+
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
             console.log('Response:', response);
@@ -81,7 +91,7 @@ function SearchCriteria() {
     };
 
     return (
-        <Card m={4} flex={{base: '8', md: '12'}} display="flex">
+        <Card m={4} flex={{ base: '8', md: '12' }} display="flex">
             <form onSubmit={handleSubmit}>
                 <CardBody display={"flex"} flexDirection={"column"}>
                     <Heading as='h3' size='lg'>Search Criteria</Heading>
@@ -103,23 +113,23 @@ function SearchCriteria() {
                             {savedWords.map((word, index) => (
                                 <Tag key={index} size="md" m={1}>
                                     <TagLabel>{word}</TagLabel>
-                                    <TagCloseButton onClick={() => handleTagClose(index)}/>
+                                    <TagCloseButton onClick={() => handleTagClose(index)} />
                                 </Tag>
                             ))}
                         </Box>
                     </Box>
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>
-                        <Select
-                            isMulti
-                            placeholder=""
-                            value={contractType}
-                            onChange={handleContractType}
-                        >
-                            <option value="Freiberuflich">Freiberuflich</option>
-                            <option value="Festanstellung">Festanstellung</option>
-                            <option value="Arbeitnehmerüberlassung">Arbeitnehmerüberlassung</option>
-                        </Select>
+                        {['Freiberuflich', 'Festanstellung', 'Arbeitnehmerüberlassung'].map((value) => (
+                            <Checkbox
+                                mr={5}
+                                key={value}
+                                isChecked={contractType.includes(value)}
+                                onChange={() => handleContractType(value)}
+                            >
+                                {value}
+                            </Checkbox>
+                        ))}
                     </FormControl>
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Region</FormLabel>
@@ -137,17 +147,16 @@ function SearchCriteria() {
                     </FormControl>
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
-                        <Select
-                            isMulti
-                            placeholder=""
-                            value={locationType}
-                            onChange={handleLocationType}
-                        >
-                            <option value="Vor Ort">Vor Ort</option>
-                            <option value="Remote">Remote</option>
-                            <option value="Hybrid">Hybrid</option>
-
-                        </Select>
+                        {['Vor Ort', 'Remote', 'Hybrid'].map((value) => (
+                            <Checkbox
+                                mr={5}
+                                key={value}
+                                isChecked={locationType.includes(value)}
+                                onChange={() => handleLocationType(value)}
+                            >
+                                {value}
+                            </Checkbox>
+                        ))}
                     </FormControl>
                     <Box display={"flex"} justifyContent={'center'}>
                         <Button mt={4} bgColor={"#18234c"} color="white" type="submit">

@@ -14,7 +14,7 @@ import {
     Text,
 } from "@chakra-ui/react";
 
-async function Mailing() {
+function Mailing() {
     const [inputEmail, setInputEmail] = useState('');
     const [savedEmails, setSavedEmails] = useState([]);
     const [error, setError] = useState('');
