@@ -12,12 +12,13 @@ export const withAuth = (WrappedComponent: React.ComponentType) => {
 
                 if (!isAuthenticated) {
                     await router.push('/login');
-                } else {
+                } else{
                     setIsLoading(false);
                 }
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
+
             }
         };
 
