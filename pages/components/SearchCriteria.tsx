@@ -19,8 +19,8 @@ function SearchCriteria() {
     const [searchWord, setSearchWord] = useState('');
     const [savedWords, setSavedWords] = useState([]);
     const [country, setCountry] = useState('Germany');
-    const [contractType, setContractType] = useState('Freiberuflich');
-    const [locationType, setLocationType] = useState('Vor Ort');
+    const [contractType, setContractType] = useState(['Freiberuflich']);
+    const [locationType, setLocationType] = useState(['Vor Ort']);
     const [searchWordError, setSearchWordError] = useState('');
 
     const handleInputChange = (event) => setSearchWord(event.target.value);
@@ -65,28 +65,18 @@ function SearchCriteria() {
             return;
         }
 
+        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-search-query';
+        const requestData = JSON.stringify({
+            locationType: locationType,
+            contractType: contractType,
+            country: country,
+            keywords: savedWords,
+        });
         try {
-            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-search-query', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    locationType: locationType,
-                    contractType: contractType,
-                    country: country,
-                    keywords: savedWords,
-                }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Response from server:', data);
-            } else {
-                console.error('Server returned an error:', response.status);
-            }
+            const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
+            console.log('Response:', response);
         } catch (error) {
-            console.error('Error sending data:', error);
+            console.error('Request error:', error);
         }
     };
 
@@ -121,6 +111,7 @@ function SearchCriteria() {
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>
                         <Select
+                            isMulti
                             placeholder=""
                             value={contractType}
                             onChange={handleContractType}
@@ -147,6 +138,7 @@ function SearchCriteria() {
                     <FormControl mb={5}>
                         <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
                         <Select
+                            isMulti
                             placeholder=""
                             value={locationType}
                             onChange={handleLocationType}

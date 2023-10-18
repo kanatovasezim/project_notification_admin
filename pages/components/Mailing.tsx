@@ -14,7 +14,7 @@ import {
     Text,
 } from "@chakra-ui/react";
 
-function Mailing() {
+async function Mailing() {
     const [inputEmail, setInputEmail] = useState('');
     const [savedEmails, setSavedEmails] = useState([]);
     const [error, setError] = useState('');
@@ -45,26 +45,16 @@ function Mailing() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-email-receivers'; // Replace with your API endpoint.
+        const requestData = JSON.stringify(savedEmails);
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-email-receivers', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(savedEmails),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Response from server:', data);
-            } else {
-                console.error('Server returned an error:', response.status);
-            }
+            const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
+            console.log('Response:', response);
         } catch (error) {
-            console.error('Error sending data:', error);
+            console.error('Request error:', error);
         }
-    };
+    }
 
     return (
         <Card mb={4}>

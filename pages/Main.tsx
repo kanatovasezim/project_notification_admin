@@ -3,6 +3,7 @@ import {Box, Flex, Image, Text} from "@chakra-ui/react";
 import Mailing from "./components/Mailing";
 import Scheduler from "./components/Scheduler";
 import SearchCriteria from "./components/SearchCriteria";
+import {withAuth} from "./utils/withAuth";
 
 const Main: React.FC = () => {
 
@@ -54,4 +55,4 @@ const Main: React.FC = () => {
     );
 };
 
-export default Main;
+export default withAuth(Main);

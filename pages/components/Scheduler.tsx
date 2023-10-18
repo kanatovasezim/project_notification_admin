@@ -24,32 +24,23 @@ function Scheduler() {
     const handleSchedulerSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await fetch('http://localhost:8080/api/v1/project-notifier/change-schedule', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Days: days? days: 0,
-                    Hours: hours? hours : 0,
-                    Minutes: minutes? minutes : 0,
-                }),
-            });
+        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-schedule';
+        const requestData = JSON.stringify({
+            Days: days? days: 0,
+            Hours: hours? hours : 0,
+            Minutes: minutes? minutes : 0,
+        });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Response from server:', data);
-            } else {
-                console.error('Server returned an error:', response.status);
-            }
+        try {
+            const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
+            console.log('Response:', response);
         } catch (error) {
-            console.error('Error sending data:', error);
+            console.error('Request error:', error);
         }
     };
 
     return (
-        <Card my={4} >
+        <Card my={4}>
             <form onSubmit={handleSchedulerSubmit}>
                 <CardBody display="flex" flexDirection="column" alignItems={"center"}>
                     <Heading as='h3' size='lg'>Scheduler</Heading>
