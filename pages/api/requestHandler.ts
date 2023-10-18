@@ -33,3 +33,5 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
 interface RequestInitWithBody extends RequestInit {
     body: string;
 }
+
+export default sendAuthenticatedRequest;

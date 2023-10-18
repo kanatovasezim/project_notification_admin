@@ -15,6 +15,7 @@ import {
     Text,
     Checkbox,
 } from "@chakra-ui/react";
+import sendAuthenticatedRequest from "../api/requestHandler";
 
 function SearchCriteria() {
     const [searchWord, setSearchWord] = useState('');
