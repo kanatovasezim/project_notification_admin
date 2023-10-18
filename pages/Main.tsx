@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Flex, Icon, Image, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Image, Text} from "@chakra-ui/react";
 import Mailing from "./components/Mailing";
 import Scheduler from "./components/Scheduler";
 import SearchCriteria from "./components/SearchCriteria";
@@ -10,14 +10,7 @@ import {ExternalLinkIcon} from '@chakra-ui/icons'
 const Main: React.FC = () => {
 
     const logout =  () => {
-        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-email-receivers'; // Replace with your API endpoint.
-
-        try {
-            const response = sendAuthenticatedRequest(apiEndpoint, 'POST');
-            console.log('Response:', response);
-        } catch (error) {
-            console.error('Request error:', error);
-        }
+        localStorage.clear();
     }
 
     return (
@@ -58,6 +51,7 @@ const Main: React.FC = () => {
                      alignItems="center"
                 >
                     <Button
+                        onClick={logout}
                         colorScheme="red"
                         size="sm"
                         leftIcon={<ExternalLinkIcon/>}
