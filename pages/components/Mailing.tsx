@@ -13,6 +13,7 @@ import {
     TagLabel,
     Text,
 } from "@chakra-ui/react";
+import sendAuthenticatedRequest from "../api/requestHandler";
 
 function Mailing() {
     const [inputEmail, setInputEmail] = useState('');
@@ -46,7 +47,7 @@ function Mailing() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-email-receivers'; // Replace with your API endpoint.
-        const requestData = JSON.stringify(savedEmails);
+        const requestData = savedEmails;
 
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Box, Button, Card, CardBody, Heading, Input, Text,} from "@chakra-ui/react";
+import sendAuthenticatedRequest from "../api/requestHandler";
 
 function Scheduler() {
     const [days, setDays] = useState<number>();
@@ -25,11 +26,11 @@ function Scheduler() {
         e.preventDefault();
 
         const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-schedule';
-        const requestData = JSON.stringify({
+        const requestData = {
             Days: days? days: 0,
             Hours: hours? hours : 0,
             Minutes: minutes? minutes : 0,
-        });
+        };
 
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
