@@ -13,7 +13,7 @@ import {
     TagCloseButton,
     TagLabel,
     Text,
-    Checkbox,
+    Checkbox, Alert, AlertIcon, AlertTitle, AlertDescription,
 } from "@chakra-ui/react";
 import sendAuthenticatedRequest from "../api/requestHandler";
 
@@ -24,6 +24,8 @@ function SearchCriteria() {
     const [contractType, setContractType] = useState(['Freiberuflich']);
     const [locationType, setLocationType] = useState(['Vor Ort']);
     const [searchWordError, setSearchWordError] = useState('');
+    const [apiResponse, setApiResponse] = useState<{ error?: string } | null>(null); // Set type as { error?: string } | null
+
 
     const handleInputChange = (event) => setSearchWord(event.target.value);
 
@@ -86,8 +88,12 @@ function SearchCriteria() {
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
             console.log('Response:', response);
+            setApiResponse(response); // Set the API response here
+
         } catch (error) {
             console.error('Request error:', error);
+            setApiResponse({ error: 'Failed to make the request.' }); // Set an error response
+
         }
     };
 
@@ -159,6 +165,15 @@ function SearchCriteria() {
                             </Checkbox>
                         ))}
                     </FormControl>
+                    {apiResponse && (
+                        <Alert status={apiResponse.error ? "error" : "success"} mt={4}>
+                            <AlertIcon />
+                            <AlertTitle>{apiResponse.error ? "Error" : "Success"}</AlertTitle>
+                            <AlertDescription>
+                                {apiResponse.error ? apiResponse.error : "Request was successful."}
+                            </AlertDescription>
+                        </Alert>
+                    )}
                     <Box display={"flex"} justifyContent={'center'}>
                         <Button mt={4} bgColor={"#18234c"} color="white" type="submit">
                             Save
