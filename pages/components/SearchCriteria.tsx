@@ -18,8 +18,8 @@ import {
 import sendAuthenticatedRequest from "../api/requestHandler";
 
 function SearchCriteria() {
-    const [searchWord, setSearchWord] = useState('');
-    const [savedWords, setSavedWords] = useState([]);
+    const [searchWord, setSearchWord] = useState<string>('');
+    const [savedWords, setSavedWords] = useState<string[]>([]);
     const [country, setCountry] = useState('Germany');
     const [contractType, setContractType] = useState(['Freiberuflich']);
     const [locationType, setLocationType] = useState(['Vor Ort']);
@@ -27,9 +27,9 @@ function SearchCriteria() {
     const [apiResponse, setApiResponse] = useState<{ error?: string } | null>(null); // Set type as { error?: string } | null
 
 
-    const handleInputChange = (event) => setSearchWord(event.target.value);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchWord(event.target.value);
 
-    const handleKeyPress = (event) => {
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             event.preventDefault();
 
@@ -43,17 +43,17 @@ function SearchCriteria() {
         }
     };
 
-    const handleTagClose = (index) => {
+    const handleTagClose = (index: number) => {
         const updatedWords = [...savedWords];
         updatedWords.splice(index, 1);
         setSavedWords(updatedWords);
     };
 
-    const handleCountry = (event) => {
+    const handleCountry = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setCountry(event.target.value);
     };
 
-    const handleContractType = (value) => {
+    const handleContractType = (value: string) => {
         if (contractType.includes(value)) {
             setContractType(contractType.filter((item) => item !== value));
         } else {
@@ -61,7 +61,7 @@ function SearchCriteria() {
         }
     };
 
-    const handleLocationType = (value) => {
+    const handleLocationType = (value: string) => {
         if (locationType.includes(value)) {
             setLocationType(locationType.filter((item) => item !== value));
         } else {
@@ -69,7 +69,7 @@ function SearchCriteria() {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (savedWords.length === 0) {

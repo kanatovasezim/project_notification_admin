@@ -16,17 +16,17 @@ import {
 import sendAuthenticatedRequest from "../api/requestHandler";
 
 function Mailing() {
-    const [inputEmail, setInputEmail] = useState('');
-    const [savedEmails, setSavedEmails] = useState([]);
+    const [inputEmail, setInputEmail] = useState<string>('');
+    const [savedEmails, setSavedEmails] = useState<string[]>([]);
     const [error, setError] = useState('');
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    const handleEmailInputChange = (event) => {
+    const handleEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputEmail(event.target.value);
         setError("");
     };
 
-    const handleEmailKeyPress = (event) => {
+    const handleEmailKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             if (emailRegex.test(inputEmail)) {
                 setSavedEmails([...savedEmails, inputEmail]);
@@ -38,7 +38,7 @@ function Mailing() {
         }
     };
 
-    const handleEmailTagClose = (index) => {
+    const handleEmailTagClose = (index: number) => {
         const updatedEmails = [...savedEmails];
         updatedEmails.splice(index, 1);
         setSavedEmails(updatedEmails);

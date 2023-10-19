@@ -1,8 +1,8 @@
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export const withAuth = (WrappedComponent: React.ComponentType) => {
-    return (props: any) => {
+    const WithAuth = (props: any) => {
         const router = useRouter();
         const [isLoading, setIsLoading] = useState(true);
 
@@ -12,13 +12,12 @@ export const withAuth = (WrappedComponent: React.ComponentType) => {
 
                 if (!isAuthenticated) {
                     await router.push('/login');
-                } else{
+                } else {
                     setIsLoading(false);
                 }
             } catch (error) {
                 console.error(error);
                 setIsLoading(false);
-
             }
         };
 
@@ -32,4 +31,14 @@ export const withAuth = (WrappedComponent: React.ComponentType) => {
 
         return <WrappedComponent checkAuthenticationStatus={checkAuthenticationStatus} {...props} />;
     };
+
+    WithAuth.displayName = `withAuth(${getDisplayName(WrappedComponent)})`;
+
+    return WithAuth;
 };
+
+function getDisplayName(WrappedComponent: React.ComponentType) {
+    return WrappedComponent.displayName || 'Component';
+}
+
+export default withAuth;

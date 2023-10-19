@@ -1,13 +1,23 @@
-import { Box, Button, Input } from '@chakra-ui/react';
-import { useState } from 'react';
-import {router} from "next/client";
+import {Box, Button, Input, Text} from '@chakra-ui/react';
+import React, {useState} from 'react';
+import {useRouter} from "next/router";
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const router = useRouter();
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!username || !password) {
+            setError('Please provide both username and password.');
+            return;
+        }
+
+        setIsLoading(true);
 
         try {
             const response = await fetch('/auth/login', {
@@ -15,19 +25,22 @@ export default function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username: `${username}`, password: `${password}` }), // Replace with actual data
+                body: JSON.stringify({ username, password }), // Use the state variables directly
 
             });
 
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('jwt', data.data);
-                router.push("/");
+                await router.push("/");
             } else {
-                console.log('Login failed');
+                setError('Login failed. Please check your credentials.');
             }
         } catch (error) {
             console.error(error);
+            setError('An error occurred while trying to login.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -46,7 +59,10 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <Button margin={2} onClick={handleLogin}>Login</Button>
+            {error && <Text color="red">{error}</Text>}
+            <Button margin={2} onClick={handleLogin} isLoading={isLoading}>
+                Login
+            </Button>
         </Box>
     );
 }

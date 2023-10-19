@@ -1,6 +1,6 @@
 // pages/protected.tsx
 
-import {withAuth} from "./utils/withAuth";
+import {withAuth} from "../utils/withAuth";
 
 function Protected() {
     return <div>Protected Content</div>;

@@ -7,22 +7,22 @@ function Scheduler() {
     const [hours, setHours] = useState<number>();
     const [minutes, setMinutes] = useState<number>();
 
-    const handleDaysChange = (event) => {
+    const handleDaysChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
         setDays(newValue);
     };
 
-    const handleHoursChange = (event) => {
+    const handleHoursChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
         setHours(newValue);
     };
 
-    const handleMinutesChange = (event) => {
+    const handleMinutesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = Math.min(99, Math.max(0, parseInt(event.target.value))) || 0;
         setMinutes(newValue);
     };
 
-    const handleSchedulerSubmit = async (e) => {
+    const handleSchedulerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const apiEndpoint = '/change-schedule';

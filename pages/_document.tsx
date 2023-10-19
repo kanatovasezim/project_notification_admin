@@ -1,18 +1,16 @@
-import {ColorModeScript} from '@chakra-ui/react'
-import {Html, Head, Main, NextScript} from 'next/document'
-import {theme} from './_app'
-import * as React from "react";
+import {Head, Html, Main, NextScript} from 'next/document';
 
-export default function Document() {
+export default function MyDocument() {
     return (
-        <Html lang='en'>
-            <Head ><link rel="icon" href="/logo-small.png"/></Head>
+        <Html lang="en">
+            <Head>
+                <link rel="icon" href="/logo-small.png"/>
+                <title>ADS Project notification admin</title>
+            </Head>
             <body>
-            {/* 👇 Here's the script */}
-            <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
             <Main/>
             <NextScript/>
             </body>
         </Html>
-    )
+    );
 }

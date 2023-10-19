@@ -1,4 +1,4 @@
-async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
+async function sendAuthenticatedRequest(url: string, method: string = 'GET', data: any = null) {
     const token = localStorage.getItem('jwt');
 
     const headers = {
@@ -6,14 +6,11 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
         'Content-Type': 'application/json',
     };
 
-    const requestOptions = {
+    const requestOptions: RequestInitWithBody = {
         method,
         headers,
+        body: data ? JSON.stringify(data) : undefined,
     };
-
-    if (data) {
-        (requestOptions as RequestInitWithBody).body = JSON.stringify(data);
-    }
 
     const API_BASE_URL = process.env.API_BASE_URL;
 
@@ -23,7 +20,6 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
         if (response.ok) {
             return await response.json();
         } else {
-
             console.error(`Request failed: ${response.status} ${response.statusText}`);
         }
     } catch (error) {
@@ -33,7 +29,7 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
 }
 
 interface RequestInitWithBody extends RequestInit {
-    body: string;
+    body?: string;
 }
 
 export default sendAuthenticatedRequest;

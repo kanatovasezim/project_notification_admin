@@ -1,18 +1,18 @@
 import React from 'react';
-import {Box, Button, Flex, Image, Text, useMediaQuery} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import Mailing from "./components/Mailing";
 import Scheduler from "./components/Scheduler";
 import SearchCriteria from "./components/SearchCriteria";
-import {withAuth} from "./utils/withAuth";
-import {ExternalLinkIcon} from '@chakra-ui/icons'
+import {withAuth} from "../utils/withAuth";
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
-const Main: React.FC = ({checkAuthenticationStatus}) => {
+const Main: React.FC = () => {
     const [isLargerThanMd] = useMediaQuery("(min-width: 768px)");
 
     const logout = () => {
         localStorage.clear();
-        checkAuthenticationStatus();
+        // checkAuthenticationStatus();
     }
 
     return (
@@ -20,8 +20,8 @@ const Main: React.FC = ({checkAuthenticationStatus}) => {
             <Box
                 bgColor="#18234c"
                 display="flex"
-                flexDirection={isLargerThanMd ? "row" : "column"} // Change direction based on screen width
-                alignItems={isLargerThanMd ? "center" : "stretch"} // Vertical alignment on small screens
+                flexDirection={isLargerThanMd ? "row" : "column"}
+                alignItems={isLargerThanMd ? "center" : "stretch"}
                 justifyContent="space-between"
                 color="white"
                 p={{base: 5, md: 7, lg: 5}}
@@ -31,13 +31,13 @@ const Main: React.FC = ({checkAuthenticationStatus}) => {
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
-                    order={isLargerThanMd ? 1 : 2} // Adjust the order for mobile
+                    order={isLargerThanMd ? 1 : 2}
                 >
                     <Image src="/logo-white.png" maxWidth="70%" alt="Logo-white"/>
                 </Box>
                 <Text
                     flex={{base: "none", md: "70%", lg: "60%"}}
-                    order={isLargerThanMd ? 2 : 1} // Adjust the order for mobile
+                    order={isLargerThanMd ? 2 : 1}
                     fontSize={{base: "large", md: "x-large", lg: "xx-large"}}
                     ml={{base: 0, md: 5, lg: 5}}
                     display="flex"
@@ -76,7 +76,6 @@ const Main: React.FC = ({checkAuthenticationStatus}) => {
             >
                 &copy; Alter Solutions Deutschland GmbH 2023. All rights reserved.
             </Box>
-
         </Flex>
     );
 };
