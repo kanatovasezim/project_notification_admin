@@ -25,7 +25,7 @@ function Scheduler() {
     const handleSchedulerSubmit = async (e) => {
         e.preventDefault();
 
-        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-schedule';
+        const apiEndpoint = '/change-schedule';
         const requestData = {
             Days: days? days: 0,
             Hours: hours? hours : 0,

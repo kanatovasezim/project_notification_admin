@@ -77,7 +77,7 @@ function SearchCriteria() {
             return;
         }
 
-        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-search-query';
+        const apiEndpoint = '/change-search-query';
         const requestData = JSON.stringify({
             locationTypes: locationType,
             contractTypes: contractType,

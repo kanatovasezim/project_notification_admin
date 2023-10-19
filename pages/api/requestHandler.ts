@@ -15,8 +15,10 @@ async function sendAuthenticatedRequest(url, method = 'GET', data = null) {
         (requestOptions as RequestInitWithBody).body = JSON.stringify(data);
     }
 
+    const API_BASE_URL = process.env.API_BASE_URL;
+
     try {
-        const response = await fetch(url, requestOptions);
+        const response = await fetch(API_BASE_URL + url, requestOptions);
 
         if (response.ok) {
             return await response.json();

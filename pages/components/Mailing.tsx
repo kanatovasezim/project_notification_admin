@@ -46,11 +46,9 @@ function Mailing() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const apiEndpoint = 'http://localhost:8080/api/v1/project-notifier/change-email-receivers'; // Replace with your API endpoint.
-        const requestData = savedEmails;
-
+        const apiEndpoint = '/change-email-receivers';
         try {
-            const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
+            const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', savedEmails);
             console.log('Response:', response);
         } catch (error) {
             console.error('Request error:', error);
