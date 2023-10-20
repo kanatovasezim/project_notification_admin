@@ -7,7 +7,7 @@ import {withAuth} from "../utils/withAuth";
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
-const Main: React.FC = ({checkAuthenticationStatus}) => {
+const Main: React.FC<{ checkAuthenticationStatus: () => void }> = ({ checkAuthenticationStatus }) => {
     const [isLargerThanMd] = useMediaQuery("(min-width: 768px)");
 
     const logout = () => {
