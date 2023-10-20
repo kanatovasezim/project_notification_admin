@@ -78,21 +78,19 @@ function SearchCriteria() {
         }
 
         const apiEndpoint = '/change-search-query';
-        const requestData = JSON.stringify({
+        const requestData = {
             locationTypes: locationType,
             contractTypes: contractType,
             country: country,
             keywords: savedWords,
-        });
+        };
 
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
-            console.log('Response:', response);
-            setApiResponse(response); // Set the API response here
+            setApiResponse(response); 
 
         } catch (error) {
-            console.error('Request error:', error);
-            setApiResponse({ error: 'Failed to make the request.' }); // Set an error response
+            setApiResponse({ error: 'Failed to make the request. Hint: try to logout and login' });
 
         }
     };

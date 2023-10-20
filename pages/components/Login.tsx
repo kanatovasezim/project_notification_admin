@@ -8,7 +8,7 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
-
+    const API_BASE_URL = process.env.API_BASE_URL;
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -20,7 +20,7 @@ export default function Login() {
         setIsLoading(true);
 
         try {
-            const response = await fetch('/auth/login', {
+            const response = await fetch(API_BASE_URL + '/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

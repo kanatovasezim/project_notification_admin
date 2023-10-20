@@ -10,7 +10,7 @@ function MyApp() {
                 <link rel="icon" href="/logo-small.png"/>
                 <title>ADS Project Notification Admin Panel</title>
             </Head>
-                <Main/>
+            <Main/>
         </ChakraProvider>
     );
 }

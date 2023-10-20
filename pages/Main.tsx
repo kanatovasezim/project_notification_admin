@@ -7,12 +7,12 @@ import {withAuth} from "../utils/withAuth";
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 
-const Main: React.FC = () => {
+const Main: React.FC = ({checkAuthenticationStatus}) => {
     const [isLargerThanMd] = useMediaQuery("(min-width: 768px)");
 
     const logout = () => {
         localStorage.clear();
-        // checkAuthenticationStatus();
+        checkAuthenticationStatus();
     }
 
     return (
@@ -29,11 +29,12 @@ const Main: React.FC = () => {
                 <Box
                     width="100%"
                     display="flex"
+                    flex={{base: "none", md: "15%", lg: "20%"}}
                     justifyContent="center"
                     alignItems="center"
                     order={isLargerThanMd ? 1 : 2}
                 >
-                    <Image src="/logo-white.png" maxWidth="70%" alt="Logo-white"/>
+                    <Image src="/logo-white.png"  alt="Logo-white"/>
                 </Box>
                 <Text
                     flex={{base: "none", md: "70%", lg: "60%"}}

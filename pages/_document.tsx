@@ -5,7 +5,6 @@ export default function MyDocument() {
         <Html lang="en">
             <Head>
                 <link rel="icon" href="/logo-small.png"/>
-                <title>ADS Project notification admin</title>
             </Head>
             <body>
             <Main/>

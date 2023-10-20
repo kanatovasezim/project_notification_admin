@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
 import {
+    Alert,
+    AlertDescription,
+    AlertIcon,
+    AlertTitle,
     Box,
     Button,
     Card,
@@ -20,6 +24,7 @@ function Mailing() {
     const [savedEmails, setSavedEmails] = useState<string[]>([]);
     const [error, setError] = useState('');
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const [apiResponse, setApiResponse] = useState<{ error?: string } | null>(null); // Set type as { error?: string } | null
 
     const handleEmailInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputEmail(event.target.value);
@@ -49,9 +54,9 @@ function Mailing() {
         const apiEndpoint = '/change-email-receivers';
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', savedEmails);
-            console.log('Response:', response);
+            setApiResponse(response);
         } catch (error) {
-            console.error('Request error:', error);
+            setApiResponse({ error: 'Failed to make the request. Hint: try to logout and login' });
         }
     }
 
@@ -81,6 +86,15 @@ function Mailing() {
                             </Tag>
                         ))}
                     </Box>
+                    {apiResponse && (
+                        <Alert status={apiResponse.error ? "error" : "success"} mt={4}>
+                            <AlertIcon />
+                            <AlertTitle>{apiResponse.error ? "Error" : "Success"}</AlertTitle>
+                            <AlertDescription>
+                                {apiResponse.error ? apiResponse.error : "Request was successful."}
+                            </AlertDescription>
+                        </Alert>
+                    )}
                     <Button mt={4} bgColor={"#18234c"} color="white" type="submit">
                         Save
                     </Button>
