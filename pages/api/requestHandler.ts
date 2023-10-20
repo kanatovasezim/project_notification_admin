@@ -16,7 +16,6 @@ async function sendAuthenticatedRequest(url: string, method: string = 'GET', dat
 
     try {
         const response = await fetch(API_BASE_URL + url, requestOptions);
-
         if (response.ok) {
             return await response.json();
         } else {

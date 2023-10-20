@@ -19,8 +19,10 @@ export default function Login() {
 
         setIsLoading(true);
 
+        const API_BASE_URL = process.env.API_BASE_URL;
+
         try {
-            const response = await fetch('/auth/login', {
+            const response = await fetch(API_BASE_URL + '/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
