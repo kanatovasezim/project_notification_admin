@@ -36,8 +36,14 @@ function Scheduler() {
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
             setApiResponse(response);
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
         } catch (error) {
             setApiResponse({ error: 'Failed to make the request. Hint: try to logout and login' });
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
         }
     };
 
@@ -49,6 +55,7 @@ function Scheduler() {
                     <Box display="flex" justifyContent="space-between" alignItems="center" my={5}>
                         <Input
                             type='number'
+                            id={'days'}
                             value={days.toString()}
                             onChange={handleDaysChange}
                             min={0}
@@ -57,6 +64,7 @@ function Scheduler() {
                         <Text mx={2}>Days</Text>
                         <Input
                             type='number'
+                            id={'hours'}
                             value={hours.toString()}
                             onChange={handleHoursChange}
                             min={0}
@@ -65,6 +73,7 @@ function Scheduler() {
                         <Text mx={2}>Hours</Text>
                         <Input
                             type='number'
+                            id={'mins'}
                             value={minutes.toString()}
                             onChange={handleMinutesChange}
                             min={0}

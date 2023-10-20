@@ -55,8 +55,14 @@ function Mailing() {
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', savedEmails);
             setApiResponse(response);
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
         } catch (error) {
             setApiResponse({ error: 'Failed to make the request. Hint: try to logout and login' });
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
         }
     }
 

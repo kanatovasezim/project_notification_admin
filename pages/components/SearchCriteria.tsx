@@ -32,10 +32,8 @@ function SearchCriteria() {
     const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             event.preventDefault();
-
             if (searchWord.trim() !== "") {
                 setSavedWords([...savedWords, searchWord]);
-                setSearchWord('');
                 setSearchWordError('');
             } else {
                 setSearchWordError('Search Keywords cannot be empty');
@@ -87,10 +85,18 @@ function SearchCriteria() {
 
         try {
             const response = await sendAuthenticatedRequest(apiEndpoint, 'POST', requestData);
-            setApiResponse(response); 
+            setApiResponse(response);
+
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
 
         } catch (error) {
             setApiResponse({ error: 'Failed to make the request. Hint: try to logout and login' });
+
+            setTimeout(() => {
+                setApiResponse(null);
+            }, 5000);
 
         }
     };
@@ -102,8 +108,9 @@ function SearchCriteria() {
                     <Heading as='h3' size='lg'>Search Criteria</Heading>
                     <Box my={5}>
                         <FormControl>
-                            <FormLabel fontWeight="bold" fontSize="lg">Search Keywords</FormLabel>
+                            <FormLabel htmlFor="searchKeyword" fontWeight="bold" fontSize="lg">Search Keywords</FormLabel>
                             <Input
+                                id="searchKeyword"
                                 placeholder="Enter text and press Enter to save"
                                 onChange={handleInputChange}
                                 onKeyDown={handleKeyPress}
@@ -124,10 +131,11 @@ function SearchCriteria() {
                         </Box>
                     </Box>
                     <FormControl mb={5}>
-                        <FormLabel fontWeight="bold" fontSize="lg">Vertragsart</FormLabel>
+                        <FormLabel fontWeight="bold" fontSize="lg" htmlFor='Freiberuflich'>Vertragsart</FormLabel>
                         {['Freiberuflich', 'Festanstellung', 'Arbeitnehmerüberlassung'].map((value) => (
                             <Checkbox
                                 mr={5}
+                                id={value}
                                 key={value}
                                 isChecked={contractType.includes(value)}
                                 onChange={() => handleContractType(value)}
@@ -151,10 +159,11 @@ function SearchCriteria() {
                         </Select>
                     </FormControl>
                     <FormControl mb={5}>
-                        <FormLabel fontWeight="bold" fontSize="lg">Einsatzart</FormLabel>
+                        <FormLabel fontWeight="bold" fontSize="lg" htmlFor='Vor Ort'>Einsatzart</FormLabel>
                         {['Vor Ort', 'Remote', 'Hybrid'].map((value) => (
                             <Checkbox
                                 mr={5}
+                                id={value}
                                 key={value}
                                 isChecked={locationType.includes(value)}
                                 onChange={() => handleLocationType(value)}

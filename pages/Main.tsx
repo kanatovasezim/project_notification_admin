@@ -32,14 +32,15 @@ const Main: React.FC<{ checkAuthenticationStatus: () => void }> = ({ checkAuthen
                     flex={{base: "none", md: "15%", lg: "20%"}}
                     justifyContent="center"
                     alignItems="center"
+                    py={{base: 5, md: 0, lg: 0}}
                     order={isLargerThanMd ? 1 : 2}
                 >
-                    <Image src="/logo-white.png"  alt="Logo-white"/>
+                    <Image src="/logo-white.png" width={{base: "40%", md: "60%", lg: "70%"}}  alt="Logo-white"/>
                 </Box>
                 <Text
                     flex={{base: "none", md: "70%", lg: "60%"}}
                     order={isLargerThanMd ? 2 : 1}
-                    fontSize={{base: "large", md: "x-large", lg: "xx-large"}}
+                    fontSize={{base: "md", md: "x-large", lg: "xx-large"}}
                     ml={{base: 0, md: 5, lg: 5}}
                     display="flex"
                     justifyContent="center"
